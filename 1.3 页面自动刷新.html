@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- // 方法1： 用html实现自动刷新
+    // 设置时间5秒刷新一次该页面
+    // 设置指定时间跳转 -->
+    <!-- <meta http-equiv="refresh" content="5;url=http://www.baidu.com"> -->
+    <title>页面自动刷新</title>
+</head>
+<body>
+    <p>hello world</p>
+    <!-- // 方法2 使用js实现自动刷新 -->
+    <script>
+        setTimeout(
+            function(){
+                location.reload()
+            },1000
+        );
+    </script>
+</body>
+</html>
