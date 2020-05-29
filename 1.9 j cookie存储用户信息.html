@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cookie存储用户信息</title>
+</head>
+<body onload="checkCookie()">
+   <script>
+     // 设置cookie函数
+     function setCookie(cname,cvalue,exDays){
+        var date = new Date();
+        //setTime() 向1970年1月1日添加那么多毫秒数,以毫秒数设置Date对象，并输入新日期;
+        //getTime() 得到1970/1/1至今的毫秒数
+        date.setTime(date.getTime() + (exDays*24*60*60*1000));
+        // toUTCString()将日期转为字符串
+        var expires = "expire =" + date.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + 
+        ";path=/";
+     }
+     // 获取cookie函数
+     function getCookie(cname){
+       // 创建变量与要搜索的文本，如“user=....”
+        var name = cname + "=";
+        // 解码cookie字符串，处理带有特殊字符的 cookie，例如 “$”。
+        var decodeCookie = decodeURIComponent(document.cookie);
+        // 用分号把 document.cookie 拆分到名为 ca（decodedCookie.split(';')）的数组中。
+        var dd = decodeCookie.split(";");
+        // 遍历dd数组，读出每一个cc=dd[i]
+        for(var i=0;i<dd.length;i++){
+            var cc = dd[i];
+            // 检查每个cc的开头是否为空，循环至开头不为0为止
+            while(cc.charAt(0) == " "){
+              cc = cc.substring(1);
+            }
+            // 每个cc开头不为0了，开始查找要搜索的cookie文本，并返回该cookie的值
+            if(cc.indexOf(name) == 0){
+              return cc.substring(name.length,cc.length);
+            }
+        }
+        return '';
+     }
+     // 检查cookie函数
+     function checkCookie(){
+        var user = getCookie("username");
+        // 如果已经设置cookie,将会显示一个问候
+        // 如果未设置 cookie，会显示一个提示框，询问用户的名字，并存储用户名 cookie 30 天，通过调用 setCookie 函数
+        if(user !== ""){
+          alert("欢迎再回来:" + user);
+        }else{
+          user = prompt("请输入您的名字:","");
+          if(user != "" && user != null){
+            setCookie("username",user,30);
+          }
+        }
+     }
+   </script>
+</body>
+</html>
